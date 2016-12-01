@@ -6,11 +6,17 @@
     }
     td {
       color: white;
-      background-color: gray;
+      background-color: silver;
       padding: .25em;
       border: 1px solid white;
       font-family: inconsolata;
       text-align: right;
+    }
+    td.gc-current-month {
+      background-color: gray;
+    }
+    td.gc-today {
+      background-color: black;
     }
   </style>
 </head>
@@ -19,7 +25,9 @@
   <script type='text/javascript'>
     var month = new GenCal.Month(2016, 11);
     var table = new GenCal.Table(month);
-    document.body.appendChild(document.createTextNode(GenCal.MONTH_NAMES[11]))
+    GenCal.styleTable(month, table);
+    document.body.appendChild(document.createTextNode(
+      GenCal.MONTH_NAMES[month.month] + ' ' + month.year));
     document.body.appendChild(table);
   </script>
 </body>

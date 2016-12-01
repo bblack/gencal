@@ -17,20 +17,40 @@ var GenCal = {
         }
         weeks.push(week);
       }
-      return weeks;
+      return {
+        year: y,
+        month: m,
+        weeks: weeks
+      };
     }
   })(),
   Table: (function(){
     return function Table(month, table){
       if (!table) table = document.createElement('table');
       while (table.firstChild) table.removeChild(table.firstChild);
-      month.forEach((week) => {
+      month.weeks.forEach((week) => {
         var tr = table.appendChild(document.createElement('tr'));
         week.forEach((day) => {
-          tr.appendChild(document.createElement('td')).innerText = day.getDate();
+          var td = document.createElement('td');
+          td.dataset.gcDate = day.toISOString();
+          td.innerText = day.getDate();
+          tr.appendChild(td);
         });
       });
       return table;
     }
-  })()
+  })(),
+  styleTable: function(month, table){
+    for (td of table.getElementsByTagName('td')) {
+      var date = new Date(td.dataset.gcDate);
+      var classes = {
+        'gc-current-month': () => date.getFullYear() == month.year && date.getMonth() == month.month,
+        'gc-today': () => {
+          var today = new Date();
+          return today.toISOString().split('T')[0] == date.toISOString().split('T')[0];
+        }
+      }
+      for (var klass in classes) if (classes[klass]()) td.classList.add(klass);
+    }
+  }
 };
