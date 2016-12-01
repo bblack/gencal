@@ -1,13 +1,23 @@
 <html>
 <head>
   <style type='text/css'>
+    button.link {
+      border: none;
+      background: none;
+      color: blue;
+      padding: .5em;
+      cursor: pointer;
+    }
+    .gc {
+      display: inline-block;
+    }
     table {
       border-collapse: collapse;
     }
     td {
       color: white;
       background-color: silver;
-      padding: .25em;
+      padding: .5em;
       border: 1px solid white;
       font-family: inconsolata;
       text-align: right;
@@ -26,9 +36,28 @@
     var month = new GenCal.Month(2016, 11);
     var table = new GenCal.Table(month);
     GenCal.styleTable(month, table);
-    document.body.appendChild(document.createTextNode(
-      GenCal.MONTH_NAMES[month.month] + ' ' + month.year));
-    document.body.appendChild(table);
+
+    var container = document.createElement('div');
+    container.classList.add('gc');
+
+    var header = document.createElement('div');
+    header.innerText = GenCal.MONTH_NAMES[month.month] + ' ' + month.year;
+
+    var prev = document.createElement('button');
+    prev.type = 'button';
+    prev.classList.add('link');
+    prev.innerText = '<';
+    header.appendChild(prev);
+
+    var next = document.createElement('button');
+    next.type = 'button';
+    next.classList.add('link');
+    next.innerText = '>'
+    header.appendChild(next);
+
+    container.appendChild(header);
+    container.appendChild(table);
+    document.body.appendChild(container);
   </script>
 </body>
 </html>

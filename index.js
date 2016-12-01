@@ -44,7 +44,10 @@ var GenCal = {
     for (td of table.getElementsByTagName('td')) {
       var date = new Date(td.dataset.gcDate);
       var classes = {
-        'gc-current-month': () => date.getFullYear() == month.year && date.getMonth() == month.month,
+        'gc-current-month': () => {
+          return date.getFullYear() == month.year &&
+            date.getMonth() == month.month;
+        },
         'gc-today': () => {
           var today = new Date();
           return today.toISOString().split('T')[0] == date.toISOString().split('T')[0];
