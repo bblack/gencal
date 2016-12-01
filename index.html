@@ -1,32 +1,44 @@
 <html>
 <head>
   <style type='text/css'>
-    button.link {
-      border: none;
-      background: none;
-      color: blue;
-      padding: .5em;
-      cursor: pointer;
+    body {
+      font-family: 'helvetica neue', 'helvetica', 'sans-serif';
+      color: #404040;
     }
     .gc {
       display: inline-block;
     }
-    table {
-      border-collapse: collapse;
+    .gc-header {
+      font-weight: bold;
+      text-align: center;
+    }
+    .gc-header button {
+      border: none;
+      background: none;
+      font-weight: bold;
+      cursor: pointer;
+      color: #6060e0;
+      font-size: 150%;
+      line-height: 50%;
+      margin-bottom: 0.5em;
+    }
+    .left {
+      float: left;
+    }
+    .right {
+      float: right;
     }
     td {
-      color: white;
-      background-color: silver;
+      color: #d0d0d0;
       padding: .5em;
-      border: 1px solid white;
-      font-family: inconsolata;
+      font-weight: bold;
       text-align: right;
     }
     td.gc-current-month {
-      background-color: gray;
+      color: #404040;
     }
     td.gc-today {
-      background-color: black;
+      color: #ff6060;
     }
   </style>
 </head>
@@ -41,18 +53,19 @@
     container.classList.add('gc');
 
     var header = document.createElement('div');
+    header.classList.add('gc-header');
     header.innerText = GenCal.MONTH_NAMES[month.month] + ' ' + month.year;
 
     var prev = document.createElement('button');
     prev.type = 'button';
-    prev.classList.add('link');
-    prev.innerText = '<';
+    prev.classList.add('link', 'left');
+    prev.innerText = '«';
     header.appendChild(prev);
 
     var next = document.createElement('button');
     next.type = 'button';
-    next.classList.add('link');
-    next.innerText = '>'
+    next.classList.add('link', 'right');
+    next.innerText = '»'
     header.appendChild(next);
 
     container.appendChild(header);
