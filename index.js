@@ -28,11 +28,11 @@ var GenCal = {
     }
 
     Month.prototype.weeks = function(){
-      var endOfMonth = new Date(this.year, this.month + 1, 1);
       var startOfMonth = new Date(this.year, this.month, 1);
+      var startOfNextMonth = new Date(this.year, this.month + 1, 1);
       var date = startOfWeek(startOfMonth);
       var weeks = [];
-      while (date <= endOfMonth) {
+      while (date < startOfNextMonth) {
         var week = [];
         while (week.length < 7) {
           week.push(date);
