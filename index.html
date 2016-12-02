@@ -51,31 +51,36 @@
     var container = document.createElement('div');
     container.classList.add('gc');
 
-    var header = document.createElement('div');
-    header.classList.add('gc-header');
+    function makeCalHeader(month){
+      var header = document.createElement('div');
+      header.classList.add('gc-header');
 
-    var monthName = document.createElement('span');
-    header.appendChild(monthName);
-    function populateMonthNameSpan(){
-      monthName.innerText = GenCal.MONTH_NAMES[month.month] + ' ' + month.year;
+      var monthName = document.createElement('span');
+      header.appendChild(monthName);
+      function populateMonthNameSpan(){
+        monthName.innerText = GenCal.MONTH_NAMES[month.month] + ' ' + month.year;
+      }
+      populateMonthNameSpan();
+      month.on('change', populateMonthNameSpan);
+
+      var prev = document.createElement('button');
+      prev.type = 'button';
+      prev.classList.add('link', 'left');
+      prev.innerText = '‹';
+      prev.addEventListener('click', () => month.prev(), false);
+      header.appendChild(prev);
+
+      var next = document.createElement('button');
+      next.type = 'button';
+      next.classList.add('link', 'right');
+      next.innerText = '›'
+      next.addEventListener('click', () => month.next(), false);
+      header.appendChild(next);
+
+      return header;
     }
-    populateMonthNameSpan();
-    month.on('change', populateMonthNameSpan);
 
-    var prev = document.createElement('button');
-    prev.type = 'button';
-    prev.classList.add('link', 'left');
-    prev.innerText = '‹';
-    prev.addEventListener('click', () => month.prev(), false);
-    header.appendChild(prev);
-
-    var next = document.createElement('button');
-    next.type = 'button';
-    next.classList.add('link', 'right');
-    next.innerText = '›'
-    next.addEventListener('click', () => month.next(), false);
-    header.appendChild(next);
-
+    var header = makeCalHeader(month);
     container.appendChild(header);
     container.appendChild(table);
     document.body.appendChild(container);
