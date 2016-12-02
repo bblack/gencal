@@ -1,7 +1,8 @@
-function EventEmitter(){}
+function EventEmitter(){
+  this._listeners = {};
+}
 
 EventEmitter.prototype.on = function(event, listener){
-  if (!this._listeners) this._listeners = {};
   if (!this._listeners[event]) this._listeners[event] = [];
   this._listeners[event].push(listener);
   return this;
@@ -17,6 +18,7 @@ var GenCal = {
   MONTH_NAMES: 'January February March April May June July August September October November December'.split(' '),
   Month: (function(){
     function Month(y, m){
+      EventEmitter.call(this);
       this.year = y;
       this.month = m;
     }
