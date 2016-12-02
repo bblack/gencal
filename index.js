@@ -95,5 +95,35 @@ var GenCal = {
       month.on('change', () => populateTable(month, table));
       return table;
     }
+  })(),
+  Header: (function(){
+    return function Header(month){
+      var header = document.createElement('div');
+      header.classList.add('gc-header');
+
+      var monthName = document.createElement('span');
+      header.appendChild(monthName);
+      function populateMonthNameSpan(){
+        monthName.innerText = GenCal.MONTH_NAMES[month.month] + ' ' + month.year;
+      }
+      populateMonthNameSpan();
+      month.on('change', populateMonthNameSpan);
+
+      var prev = document.createElement('button');
+      prev.type = 'button';
+      prev.classList.add('link', 'left');
+      prev.innerHTML = '&larr;';
+      prev.addEventListener('click', () => month.prev(), false);
+      header.appendChild(prev);
+
+      var next = document.createElement('button');
+      next.type = 'button';
+      next.classList.add('link', 'right');
+      next.innerHTML = '&rarr;'
+      next.addEventListener('click', () => month.next(), false);
+      header.appendChild(next);
+
+      return header;
+    };
   })()
 };

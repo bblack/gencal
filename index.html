@@ -11,16 +11,13 @@
     .gc-header {
       font-weight: bold;
       text-align: center;
+      margin-bottom: 0.5em;
     }
     .gc-header button {
       border: none;
       background: none;
-      font-weight: bold;
       cursor: pointer;
       color: #6060e0;
-      font-size: 150%;
-      line-height: 50%;
-      margin-bottom: 0.5em;
     }
     .left {
       float: left;
@@ -47,40 +44,10 @@
   <script type='text/javascript'>
     var month = new GenCal.Month(2016, 11);
     var table = new GenCal.Table(month);
+    var header = new GenCal.Header(month);
 
     var container = document.createElement('div');
     container.classList.add('gc');
-
-    function makeCalHeader(month){
-      var header = document.createElement('div');
-      header.classList.add('gc-header');
-
-      var monthName = document.createElement('span');
-      header.appendChild(monthName);
-      function populateMonthNameSpan(){
-        monthName.innerText = GenCal.MONTH_NAMES[month.month] + ' ' + month.year;
-      }
-      populateMonthNameSpan();
-      month.on('change', populateMonthNameSpan);
-
-      var prev = document.createElement('button');
-      prev.type = 'button';
-      prev.classList.add('link', 'left');
-      prev.innerText = '‹';
-      prev.addEventListener('click', () => month.prev(), false);
-      header.appendChild(prev);
-
-      var next = document.createElement('button');
-      next.type = 'button';
-      next.classList.add('link', 'right');
-      next.innerText = '›'
-      next.addEventListener('click', () => month.next(), false);
-      header.appendChild(next);
-
-      return header;
-    }
-
-    var header = makeCalHeader(month);
     container.appendChild(header);
     container.appendChild(table);
     document.body.appendChild(container);
