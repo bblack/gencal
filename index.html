@@ -47,25 +47,33 @@
   <script type='text/javascript'>
     var month = new GenCal.Month(2016, 11);
     var table = new GenCal.Table(month);
-    GenCal.styleTable(month, table);
 
     var container = document.createElement('div');
     container.classList.add('gc');
 
     var header = document.createElement('div');
     header.classList.add('gc-header');
-    header.innerText = GenCal.MONTH_NAMES[month.month] + ' ' + month.year;
+
+    var monthName = document.createElement('span');
+    header.appendChild(monthName);
+    function populateMonthNameSpan(){
+      monthName.innerText = GenCal.MONTH_NAMES[month.month] + ' ' + month.year;
+    }
+    populateMonthNameSpan();
+    month.on('change', populateMonthNameSpan);
 
     var prev = document.createElement('button');
     prev.type = 'button';
     prev.classList.add('link', 'left');
     prev.innerText = '‹';
+    prev.addEventListener('click', () => month.prev(), false);
     header.appendChild(prev);
 
     var next = document.createElement('button');
     next.type = 'button';
     next.classList.add('link', 'right');
     next.innerText = '›'
+    next.addEventListener('click', () => month.next(), false);
     header.appendChild(next);
 
     container.appendChild(header);

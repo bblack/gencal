@@ -1,13 +1,36 @@
+function EventEmitter(){}
+
+EventEmitter.prototype.on = function(event, listener){
+  if (!this._listeners) this._listeners = {};
+  if (!this._listeners[event]) this._listeners[event] = [];
+  this._listeners[event].push(listener);
+  return this;
+}
+
+EventEmitter.prototype.emit = function(event){
+  var args = Array.prototype.slice.apply(arguments, [1]);
+  this._listeners[event].forEach((cb) => cb.apply(this, args));
+  return this;
+}
+
 var GenCal = {
   MONTH_NAMES: 'January February March April May June July August September October November December'.split(' '),
   Month: (function(){
+    function Month(y, m){
+      this.year = y;
+      this.month = m;
+    }
+
+    Object.assign(Month.prototype, EventEmitter.prototype);
+
     function startOfWeek(d){
       return new Date(d.getFullYear(), d.getMonth(), d.getDate() - d.getDay());
     }
 
-    return function Month(y, m){
-      var endOfMonth = new Date(y, m + 1, 1);
-      var date = startOfWeek(new Date(y, m, 1));
+    Month.prototype.weeks = function(){
+      var endOfMonth = new Date(this.year, this.month + 1, 1);
+      var startOfMonth = new Date(this.year, this.month, 1);
+      var date = startOfWeek(startOfMonth);
       var weeks = [];
       while (date <= endOfMonth) {
         var week = [];
@@ -17,18 +40,44 @@ var GenCal = {
         }
         weeks.push(week);
       }
-      return {
-        year: y,
-        month: m,
-        weeks: weeks
-      };
+      return weeks;
+    };
+
+    Month.prototype.next = function(){
+      this.month = ((this.month + 1) % 12);
+      if (this.month == 0) this.year += 1;
+      this.emit('change');
     }
+
+    Month.prototype.prev = function(){
+      this.month = ((this.month + 11) % 12);
+      if (this.month == 11) this.year -= 1;
+      this.emit('change');
+    }
+
+    return Month;
   })(),
   Table: (function(){
-    return function Table(month, table){
-      if (!table) table = document.createElement('table');
+    function styleTable(month, table){
+      for (td of table.getElementsByTagName('td')) {
+        var date = new Date(td.dataset.gcDate);
+        var classes = {
+          'gc-current-month': () => {
+            return date.getFullYear() == month.year &&
+              date.getMonth() == month.month;
+          },
+          'gc-today': () => {
+            var today = new Date();
+            return today.toISOString().split('T')[0] == date.toISOString().split('T')[0];
+          }
+        }
+        for (var klass in classes) if (classes[klass]()) td.classList.add(klass);
+      }
+    }
+
+    function populateTable(month, table){
       while (table.firstChild) table.removeChild(table.firstChild);
-      month.weeks.forEach((week) => {
+      month.weeks().forEach((week) => {
         var tr = table.appendChild(document.createElement('tr'));
         week.forEach((day) => {
           var td = document.createElement('td');
@@ -37,23 +86,14 @@ var GenCal = {
           tr.appendChild(td);
         });
       });
+      styleTable(month, table);
+    }
+
+    return function Table(month, table){
+      if (!table) table = document.createElement('table');
+      populateTable(month, table);
+      month.on('change', () => populateTable(month, table));
       return table;
     }
-  })(),
-  styleTable: function(month, table){
-    for (td of table.getElementsByTagName('td')) {
-      var date = new Date(td.dataset.gcDate);
-      var classes = {
-        'gc-current-month': () => {
-          return date.getFullYear() == month.year &&
-            date.getMonth() == month.month;
-        },
-        'gc-today': () => {
-          var today = new Date();
-          return today.toISOString().split('T')[0] == date.toISOString().split('T')[0];
-        }
-      }
-      for (var klass in classes) if (classes[klass]()) td.classList.add(klass);
-    }
-  }
+  })()
 };
