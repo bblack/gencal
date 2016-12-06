@@ -126,7 +126,6 @@ describe('GenCal', function(){
         it('should result in June 2016', function(){
           var weeks = month.weeks();
           var firstWeek = weeks[0];
-          console.log(firstWeek);
           var firstOfMonth = new Date(2016, 5, 1);
           var lastWeek = weeks[weeks.length - 1];
           var lastOfMonth = new Date(2016, 5, 30);
