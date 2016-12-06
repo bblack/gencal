@@ -137,14 +137,14 @@ describe('GenCal', function(){
   })
   describe('Table', function(){
     var table;
-    context('April 2063', function(){
+    context('January 1999', function(){
       beforeEach(function(){
-        var month = new GenCal.Month(2063, 3);
+        var month = new GenCal.Month(1999, 0);
         table = new GenCal.Table(month, document.createElement('table'));
       })
-      it('should contain 5 rows of 7 cells', function(){
+      it('should contain 6 rows of 7 cells', function(){
         var rows = table.getElementsByTagName('tr');
-        assert.equal(rows.length, 5);
+        assert.equal(rows.length, 6);
         for (var i = 0; i < rows.length; i++) {
           var cells = rows[i].getElementsByTagName('td');
           assert.equal(cells.length, 7);
@@ -155,6 +155,16 @@ describe('GenCal', function(){
         for (var i = 0; i < cells.length; i++) {
           assert(cells[i].innerText.match(/\d+/));
         }
+      })
+      it('should have a 1 in the first row', function(){
+        var firstRow = table.getElementsByTagName('tr').item(0);
+        var cells = Array.from(firstRow.getElementsByTagName('td'));
+        assert(cells.find((td) => td.innerText == '1'));
+      })
+      it('should have a 31 in the last row', function(){
+        var lastRow = table.getElementsByTagName('tr').item(5);
+        var cells = Array.from(lastRow.getElementsByTagName('td'));
+        assert(cells.find((td) => td.innerText == '31'));
       })
     })
   })
