@@ -1,4 +1,5 @@
 mocha.setup('bdd');
+window.onload = () => mocha.run();
 
 describe('GenCal', function(){
   describe('Month', function(){
@@ -169,5 +170,3 @@ describe('GenCal', function(){
     })
   })
 })
-
-window.onload = () => mocha.run();
