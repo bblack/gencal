@@ -10,7 +10,8 @@ EventEmitter.prototype.on = function(event, listener){
 
 EventEmitter.prototype.emit = function(event){
   var args = Array.prototype.slice.apply(arguments, [1]);
-  this._listeners[event].forEach((cb) => cb.apply(this, args));
+  var listeners = this._listeners[event];
+  if (listeners) listeners.forEach((cb) => cb.apply(this, args));
   return this;
 }
 
