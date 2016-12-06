@@ -18,6 +18,13 @@ describe('GenCal', function(){
             assert.equal(week[0].getDay(), 0);
           })
         })
+        it('should start at Sunday, December 27 1998', function(){
+          assert(weeks[0][0].getTime() == new Date(1998, 11, 27).getTime());
+        })
+        it('should end at Saturday, February 6 1999', function(){
+          var lastWeek = weeks[weeks.length - 1];
+          assert(lastWeek[6].getTime() == new Date(1999, 1, 6).getTime());
+        })
         it('should contain January 1 in the first week', function(){
           var firstOfMonth = new Date(1999, 0, 1);
           assert(weeks[0].find((d) => d.getTime() == firstOfMonth.getTime()));
