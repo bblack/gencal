@@ -135,6 +135,29 @@ describe('GenCal', function(){
       })
     })
   })
+  describe('Table', function(){
+    var table;
+    context('April 2063', function(){
+      beforeEach(function(){
+        var month = new GenCal.Month(2063, 3);
+        table = new GenCal.Table(month, document.createElement('table'));
+      })
+      it('should contain 5 rows of 7 cells', function(){
+        var rows = table.getElementsByTagName('tr');
+        assert.equal(rows.length, 5);
+        for (var i = 0; i < rows.length; i++) {
+          var cells = rows[i].getElementsByTagName('td');
+          assert.equal(cells.length, 7);
+        }
+      })
+      it('should have a number in every cell', function(){
+        var cells = table.getElementsByTagName('td');
+        for (var i = 0; i < cells.length; i++) {
+          assert(cells[i].innerText.match(/\d+/));
+        }
+      })
+    })
+  })
 })
 
 window.onload = () => mocha.run();
