@@ -137,10 +137,11 @@ describe('GenCal', function(){
     })
   })
   describe('Table', function(){
+    var month;
     var table;
     context('January 1999', function(){
       beforeEach(function(){
-        var month = new GenCal.Month(1999, 0);
+        month = new GenCal.Month(1999, 0);
         table = new GenCal.Table(month, document.createElement('table'));
       })
       it('should contain 6 rows of 7 cells', function(){
@@ -166,6 +167,25 @@ describe('GenCal', function(){
         var lastRow = table.getElementsByTagName('tr').item(5);
         var cells = Array.from(lastRow.getElementsByTagName('td'));
         assert(cells.find((td) => td.innerText == '31'));
+      })
+      context('After month.next() is called', function(){
+        beforeEach(function(){
+          month.next();
+        });
+        it('should contain 5 rows of 7 cells', function(){
+          var rows = table.getElementsByTagName('tr');
+          assert.equal(rows.length, 5);
+          for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName('td');
+            assert.equal(cells.length, 7);
+          }
+        });
+        it('should not contain any number over 28 in the last row', function(){
+          var rows = table.getElementsByTagName('tr');
+          var lastRow = rows[rows.length - 1];
+          var cells = Array.from(lastRow.getElementsByTagName('td'));
+          cells.forEach((td) => assert(td.innerText <= 28));
+        })
       })
     })
     context('May 2016', function(){
