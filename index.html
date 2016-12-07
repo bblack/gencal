@@ -9,7 +9,7 @@
   <div class='gc'></div>
   <script type='text/javascript' src='index.js'></script>
   <script type='text/javascript'>
-    var containers = Array.from(document.getElementsByClassName('gc'));
+    var containers = document.getElementsByClassName('gc');
     for (var i=0; i<containers.length; i++) {
       var container = containers[i];
       var month = new GenCal.Month(2016, i);
