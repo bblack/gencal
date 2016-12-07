@@ -61,21 +61,17 @@ var GenCal = {
     return Month;
   })(),
   Table: (function(){
-    function styleTable(month, table){
-      for (td of table.getElementsByTagName('td')) {
-        var date = new Date(td.dataset.gcDate);
-        var classes = {
-          'gc-current-month': () => {
-            return date.getFullYear() == month.year &&
-              date.getMonth() == month.month;
-          },
-          'gc-today': () => {
-            var today = new Date();
-            return today.toISOString().split('T')[0] == date.toISOString().split('T')[0];
-          }
+    function onEachCell(month, date, td){
+      var classes = {
+        'gc-current-month': () => {
+          return date.getFullYear() == month.year && date.getMonth() == month.month;
+        },
+        'gc-today': () => {
+          var today = new Date();
+          return today.toISOString().split('T')[0] == date.toISOString().split('T')[0];
         }
-        for (var klass in classes) if (classes[klass]()) td.classList.add(klass);
       }
+      for (var klass in classes) if (classes[klass]()) td.classList.add(klass);
     }
 
     function populateTable(month, table){
@@ -86,10 +82,10 @@ var GenCal = {
           var td = document.createElement('td');
           td.dataset.gcDate = day.toISOString();
           td.innerText = day.getDate();
+          onEachCell(month, day, td);
           tr.appendChild(td);
         });
       });
-      styleTable(month, table);
     }
 
     return function Table(month, table){
