@@ -1,23 +1,26 @@
 <html>
 <head>
   <link rel='stylesheet' type='text/css' href='./style.css'>
+  <script type='text/javascript' src='index.js'></script>
 </head>
 <body>
-  <div class='gc'></div>
-  <div class='gc'></div>
-  <div class='gc'></div>
-  <div class='gc'></div>
-  <script type='text/javascript' src='index.js'></script>
-  <script type='text/javascript'>
-    var containers = document.getElementsByClassName('gc');
-    for (var i=0; i<containers.length; i++) {
-      var container = containers[i];
-      var month = new GenCal.Month(2016, i);
-      var table = new GenCal.Table(month);
-      var header = new GenCal.Header(month);
-      container.appendChild(header);
-      container.appendChild(table);
-    }
+  <h1>GenCal</h1>
+  <pre><code>
+    var today = new Date();
+    var month = new GenCal.Month(today.getFullYear(), today.getMonth());
+    var el = document.getElementById('gc1');
+    el.appendChild(new GenCal.Header(month));
+    el.appendChild(new GenCal.Table(month));
+  </code></pre>
+  <div id='gc1' class='gc'></div>
+  <script>
+    (function(){
+      var today = new Date();
+      var month = new GenCal.Month(today.getFullYear(), today.getMonth());
+      var el = document.getElementById('gc1');
+      el.appendChild(new GenCal.Header(month));
+      el.appendChild(new GenCal.Table(month));
+    })();
   </script>
 </body>
 </html>
