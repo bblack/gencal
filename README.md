@@ -3,10 +3,10 @@
 *GenCal* is a javascript module that provides a monthly calendar and a DOM presentation of it.
 
 ## what it is
-It is tiny. It is dependency-free. It is modular and extendable.
+It is a monthly calendar model, and a minimal HTML view. It is tiny. It is dependency-free. It is modular and extendable.
 
 ## what it is not
-It does not take an endless list of options. It does not include a reinvention of date inputs or dropdowns or popovers or bootstrap styles. It doesn't care whether you're allowing the user to select a date or just showing a date or a range of dates or several nonconsecutive dates or how many calendars you want to display or when you want to display them.
+It does not take an endless list of options. It does not include a reinvention of date inputs or dropdowns or popovers or bootstrap styles. It doesn't make the DOM needlessly complex. It doesn't add crappy inline styles to any elements. It doesn't care whether you're allowing the user to select a date or just showing a date or a range of dates or several nonconsecutive dates or how many calendars you want to display or when you want to display them.
 
 ## modules
 
