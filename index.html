@@ -22,5 +22,35 @@
       el.appendChild(new GenCal.Table(month));
     })();
   </script>
+  <hr>
+  <pre><code>
+    var today = new Date();
+    var month = new GenCal.Month(today.getFullYear(), today.getMonth());
+    var el = document.getElementById('gc2');
+    el.appendChild(new GenCal.Header(month));
+    el.appendChild(new GenCal.Table(month, {
+      onEachCell: (month, date, td) => {
+        var day = date.getDay();
+        if (day == 0 || day == 6)
+          td.classList.add('weekend');
+      }
+    }));
+  </code></pre>
+  <div id='gc2' class='gc'></div>
+  <script>
+    (function(){
+      var today = new Date();
+      var month = new GenCal.Month(today.getFullYear(), today.getMonth());
+      var el = document.getElementById('gc2');
+      el.appendChild(new GenCal.Header(month));
+      el.appendChild(new GenCal.Table(month, {
+        onEachCell: (month, date, td) => {
+          var day = date.getDay();
+          if (day == 0 || day == 6)
+            td.classList.add('weekend');
+        }
+      }));
+    })();
+  </script>
 </body>
 </html>

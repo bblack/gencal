@@ -74,7 +74,7 @@ var GenCal = {
       for (var klass in classes) if (classes[klass]()) td.classList.add(klass);
     }
 
-    function populateTable(month, table){
+    function populateTable(month, table, opts){
       while (table.firstChild) table.removeChild(table.firstChild);
       month.weeks().forEach((week) => {
         var tr = table.appendChild(document.createElement('tr'));
@@ -83,15 +83,17 @@ var GenCal = {
           td.dataset.gcDate = day.toISOString();
           td.innerText = day.getDate();
           onEachCell(month, day, td);
+          if (opts.onEachCell) opts.onEachCell(month, day, td);
           tr.appendChild(td);
         });
       });
     }
 
-    return function Table(month, table){
-      if (!table) table = document.createElement('table');
-      populateTable(month, table);
-      month.on('change', () => populateTable(month, table));
+    return function Table(month, opts){
+      opts = opts || {};
+      var table = document.createElement('table');
+      populateTable(month, table, opts);
+      month.on('change', () => populateTable(month, table, opts));
       return table;
     }
   })(),

@@ -25,6 +25,9 @@ code {
   cursor: pointer;
   color: #6060e0;
 }
+.gc td.weekend {
+  background-color: #eee;
+}
 .left {
   float: left;
 }
