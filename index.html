@@ -5,28 +5,41 @@
 </head>
 <body>
   <h1>GenCal</h1>
+
+  <h2>Calendar</h2>
   <pre><code>
     var today = new Date();
     var month = new GenCal.Month(today.getFullYear(), today.getMonth());
+    var table = new GenCal.Table(month);
     var el = document.getElementById('gc1');
-    el.appendChild(new GenCal.Header(month));
-    el.appendChild(new GenCal.Table(month));
+    el.appendChild(table);
   </code></pre>
   <div id='gc1' class='gc'></div>
-  <script>
-    (function(){
-      var today = new Date();
-      var month = new GenCal.Month(today.getFullYear(), today.getMonth());
-      var el = document.getElementById('gc1');
-      el.appendChild(new GenCal.Header(month));
-      el.appendChild(new GenCal.Table(month));
-    })();
-  </script>
-  <hr>
+
+  <h2>Calendar and header</h2>
   <pre><code>
     var today = new Date();
     var month = new GenCal.Month(today.getFullYear(), today.getMonth());
     var el = document.getElementById('gc2');
+    el.appendChild(new GenCal.Header(month));
+    el.appendChild(new GenCal.Table(month));
+  </code></pre>
+  <div id='gc2' class='gc'></div>
+  <script>
+    (function(){
+      var today = new Date();
+      var month = new GenCal.Month(today.getFullYear(), today.getMonth());
+      var el = document.getElementById('gc2');
+      el.appendChild(new GenCal.Header(month));
+      el.appendChild(new GenCal.Table(month));
+    })();
+  </script>
+
+  <h2>Day post-processing</h2>
+  <pre><code>
+    var today = new Date();
+    var month = new GenCal.Month(today.getFullYear(), today.getMonth());
+    var el = document.getElementById('gc3');
     el.appendChild(new GenCal.Header(month));
     el.appendChild(new GenCal.Table(month, {
       onEachCell: (month, date, td) => {
@@ -36,12 +49,12 @@
       }
     }));
   </code></pre>
-  <div id='gc2' class='gc'></div>
+  <div id='gc3' class='gc'></div>
   <script>
     (function(){
       var today = new Date();
       var month = new GenCal.Month(today.getFullYear(), today.getMonth());
-      var el = document.getElementById('gc2');
+      var el = document.getElementById('gc3');
       el.appendChild(new GenCal.Header(month));
       el.appendChild(new GenCal.Table(month, {
         onEachCell: (month, date, td) => {
