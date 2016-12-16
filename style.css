@@ -10,9 +10,16 @@ h2 {
 }
 code {
   display: block;
+  float: left;
+  max-width: 80em;
+  padding: 1em;
+  font-size: 9pt;
+  margin-right: 1em;
   line-height: 1.5em;
   font-family: 'inconsolata', 'consolas', 'monospace';
-  background: #f0f0f0;
+  /*background: #f0f0f0;*/
+  background: #444;
+  color: #eee;
 }
 .gc {
   display: inline-block;
