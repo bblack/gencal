@@ -11,10 +11,10 @@ h2 {
 code {
   display: block;
   float: left;
-  max-width: 80em;
+  width: 80ex;
   padding: 1em;
   font-size: 9pt;
-  margin-right: 1em;
+  margin: 0em 1em 1em 0;
   line-height: 1.5em;
   font-family: 'inconsolata', 'consolas', 'monospace';
   /*background: #f0f0f0;*/
