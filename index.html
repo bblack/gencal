@@ -15,6 +15,15 @@
     el.appendChild(table);
   </code></pre>
   <div id='gc1' class='gc'></div>
+  <script>
+    (function(){
+      var today = new Date();
+      var month = new GenCal.Month(today.getFullYear(), today.getMonth());
+      var table = new GenCal.Table(month);
+      var el = document.getElementById('gc1');
+      el.appendChild(table);
+    })()
+  </script>
 
   <h2>Calendar and header</h2>
   <pre><code>
