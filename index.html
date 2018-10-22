@@ -68,5 +68,44 @@ el.appendChild(new GenCal.Table(month, {
       }));
     })();
   </script>
+
+  <h2>Date picker</h2>
+  <pre><code>
+    var today = new Date();
+    var month = new GenCal.Month(today.getFullYear(), today.getMonth());
+    var el = document.getElementById('gc4');
+    var table = new GenCal.Table(month, {
+      onEachCell: (month, date, td) => {
+        td.addEventListener('click', () => {
+          for (var td_ of table.getElementsByTagName('td')) {
+            td_.classList.remove('selected');
+          }
+          td.classList.add('selected');
+        });
+      }
+    });
+    el.appendChild(new GenCal.Header(month));
+    el.appendChild(table);
+  </code></pre>
+  <div id='gc4' class='gc picker'></div>
+  <script>
+    (function(){
+      var today = new Date();
+      var month = new GenCal.Month(today.getFullYear(), today.getMonth());
+      var el = document.getElementById('gc4');
+      var table = new GenCal.Table(month, {
+        onEachCell: (month, date, td) => {
+          td.addEventListener('click', () => {
+            for (var td_ of table.getElementsByTagName('td')) {
+              td_.classList.remove('selected');
+            }
+            td.classList.add('selected');
+          });
+        }
+      });
+      el.appendChild(new GenCal.Header(month));
+      el.appendChild(table);
+    })()
+  </script>
 </body>
 </html>

@@ -56,3 +56,16 @@ td.gc-current-month {
 td.gc-today {
   color: #ff6060;
 }
+.picker td {
+  cursor: pointer;
+}
+.picker td.selected {
+  background: #404040;
+  color: white;
+  border-radius: 0.5em;
+}
+.picker td.gc-today.selected {
+  background: #ff6060;
+  color: white;
+  border-radius: 0.5em;
+}
